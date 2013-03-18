@@ -11,12 +11,12 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Put together our GUI
 ; An input line, a submit line, and a read-only textarea that the user can copy and paste from
-Gui, Show, w500 h500, Fight List
-Gui, Add, Text,, Enter Fight:
-Gui, Add, Edit, r1 w417 vtheFight
-Gui, Add, Button, x+8 Default gUpdateCard, Add Fight
-Gui, Add, Text, x+-482 y+10, Your HTML:
-Gui, Add, Edit, r29 w480 vfightCard
+Gui, Show, w500 h550, Fight List
+Gui, Add, Text,, Enter Fights:
+Gui, Add, Edit, r12 w480 vtheFight
+Gui, Add, Button, Default gConvertCard, Convert Fight Card
+Gui, Add, Text, y+10, Your HTML:
+Gui, Add, Edit, r20 w480 vfightCard
 Gui, Add, Button, gClipCard, Copy HTML
 Gui, Add, Button, gQuitMe x+385, Exit
 
@@ -31,14 +31,22 @@ Gui, Add, Button, gQuitMe x+385, Exit
 ;		NOTE: we'll assume every fight is 3 rounds since that just means Fridley needs to make 1 fight per event 5 rounds
 ;	5. Display the index and recap in fightCard so that Fridley can cut-n-paste
 ;
-UpdateCard:
+ConvertCard:
 	If A_GuiEvent = Normal ; This makes this button fire only onclick and not on creation
 		{
 		Gui, Submit, NoHide
-		eventIndex :=  makeLI(theFight) . eventIndex ; create an index entry for this event; works in reverse order so that the headliner card is at the top of the index, but the first fight is at the top of the narrative
-		eventUL := makeUL(eventIndex)
-		eventRecord := eventRecord . addRounds(makeTitle(theFight)) ; create a record for this event
-		fullCard = 	%eventUL%`n`n%eventRecord%
+		StringSplit, arrFights, theFight, `n, `r
+
+		Loop, %arrFights0%
+			{
+				thisFight := arrFights%a_index%
+
+				eventIndex :=  makeLI(thisFight) . eventIndex ; create an index entry for this event; works in reverse order so that the headliner card is at the top of the index, but the first fight is at the top of the narrative
+				eventUL := makeUL(eventIndex)
+				eventRecord := eventRecord . addRounds(makeTitle(thisFight)) ; create a record for this event
+			}
+
+		fullCard = 	%eventUL%`n`n%eventRecord% 
 		guicontrol,, fightCard, %fullCard%
 		guicontrol,, theFight, 
 		}
@@ -60,8 +68,10 @@ Return
 ; Turn a fightname into anchor text by changing spaces to dashes, removing periods, and making lowercase
 makeAnchor(fight)
 	{
-		StringReplace, theAnchor, fight, %A_SPACE%, -, All
+		StringReplace, theAnchor, fight, ', , All
+		StringReplace, theAnchor, theAnchor, %A_SPACE%vs, , All
 		StringReplace, theAnchor, theAnchor, ., , All
+		StringReplace, theAnchor, theAnchor, %A_SPACE%, -, All
 		StringLower, theAnchor, theAnchor
 
 		return theAnchor
