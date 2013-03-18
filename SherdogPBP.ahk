@@ -35,7 +35,7 @@ UpdateCard:
 	If A_GuiEvent = Normal ; This makes this button fire only onclick and not on creation
 		{
 		Gui, Submit, NoHide
-		eventIndex := eventIndex . makeLI(theFight) ; create an index entry for this event
+		eventIndex :=  makeLI(theFight) . eventIndex ; create an index entry for this event; works in reverse order so that the headliner card is at the top of the index, but the first fight is at the top of the narrative
 		eventUL := makeUL(eventIndex)
 		eventRecord := eventRecord . addRounds(makeTitle(theFight)) ; create a record for this event
 		fullCard = 	%eventUL%`n`n%eventRecord%
@@ -57,10 +57,11 @@ Return
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; The functions that the button calls
 
-; Turn a fightname into anchor text by changing spaces to dashes and making lowercase
+; Turn a fightname into anchor text by changing spaces to dashes, removing periods, and making lowercase
 makeAnchor(fight)
 	{
 		StringReplace, theAnchor, fight, %A_SPACE%, -, All
+		StringReplace, theAnchor, theAnchor, ., , All
 		StringLower, theAnchor, theAnchor
 
 		return theAnchor
@@ -93,7 +94,7 @@ makeLI(fight)
 	{
 		theLink := makeAnchor(fight)
 
-		theLI = <a href="%theLink%">%fight%</a>
+		theLI = <a href="#%theLink%">%fight%</a> ;need to add in a # before the link!
 		theLI = <li>%theLI%</li>
 
 		theLI = `n%theLI%
