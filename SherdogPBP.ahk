@@ -21,6 +21,12 @@ Gui, Add, Button, gClipCard, Copy HTML
 Gui, Add, Button, gQuitMe x+385, Exit
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; This is Fridley's stock content
+strContent = Check out the <a href="http://forums.sherdog.com/forums/">MMA Forums</a> to discuss the card or enter your comments and predictions below. Have a question for Sherdog.com's medical expert? Tweet The Fight Doctor via <a href="http://www.twitter.com/FightMedicine">@FightMedicine</a>.`n<BR>`n<BR>n`
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Make the GUI do things
 ;
 ; When the user clicks the Add Fight button, take the contents of the Enter Fight field and:
@@ -46,7 +52,7 @@ ConvertCard:
 				eventRecord := addRounds(makeTitle(thisFight)) . eventRecord ; create a record for this event
 			}
 
-		fullCard = 	%eventUL%`n`n%eventRecord% 
+		fullCard = 	%eventUL%`n`n%strContent%`n`n%eventRecord% 
 		guicontrol,, fightCard, %fullCard%
 		guicontrol,, theFight, 
 		}
