@@ -41,9 +41,9 @@ ConvertCard:
 			{
 				thisFight := arrFights%a_index%
 
-				eventIndex :=  makeLI(thisFight) . eventIndex ; create an index entry for this event; works in reverse order so that the headliner card is at the top of the index, but the first fight is at the top of the narrative
+				eventIndex :=  eventIndex . makeLI(thisFight) ; create an index entry for this event; works in reverse order so that the headliner card is at the top of the index, but the first fight is at the top of the narrative
 				eventUL := makeUL(eventIndex)
-				eventRecord := eventRecord . addRounds(makeTitle(thisFight)) ; create a record for this event
+				eventRecord := addRounds(makeTitle(thisFight)) . eventRecord ; create a record for this event
 			}
 
 		fullCard = 	%eventUL%`n`n%eventRecord% 
