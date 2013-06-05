@@ -22,7 +22,7 @@ Gui, Add, Button, gQuitMe x+385, Exit
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; This is Fridley's stock content
-strContent = Check out the <a href="http://forums.sherdog.com/forums/">MMA Forums</a> to discuss the card or enter your comments and predictions below. Have a question for Sherdog.com's medical expert? Tweet The Fight Doctor via <a href="http://www.twitter.com/FightMedicine">@FightMedicine</a>.`n<BR>`n<BR>n`
+strContent = Check out the <a href="http://forums.sherdog.com/forums/">MMA Forums</a> to discuss the card or enter your comments and predictions below. Have a question for Sherdog.com's medical expert? Tweet The Fight Doctor via <a href="http://www.twitter.com/FightMedicine">@FightMedicine</a>.`n<br>`n<br>`n
 
 
 
@@ -86,7 +86,7 @@ makeAnchor(fight)
 ; Append empty rounds to a recap
 addRounds(fight)
 	{
-		theRounds = <strong>Round 1</strong><BR>`n<BR><BR>`n<strong>Round 2</strong><BR>`n<BR><BR>`n<strong>Round 3</strong><BR>`n<BR><BR>
+		theRounds = <h3 style="font-size: 22px; margin-bottom: 2px; margin-top: 10px; text-align: center;">Round 1</h3>`n<h4 style="font-weight: bold; font-size: 14px; margin-top: 4px;">Sherdog Scores</h4>`n<h3 style="font-size: 22px; margin-bottom: 2px; margin-top: 10px; text-align: center;">Round 2</h3>`n<h4 style="font-weight: bold; font-size: 14px; margin-top: 4px;">Sherdog Scores</h4>`n<h3 style="font-size: 22px; margin-bottom: 2px; margin-top: 10px; text-align: center;">Round 3</h3>`n<h4 style="font-weight: bold; font-size: 14px; margin-top: 4px;">Sherdog Scores</h4>`n<h3 style="font-size: 22px; margin-bottom: 2px; margin-top: 10px; text-align: center;">The Result</h3>
 		theRounds = %fight%%theRounds%`n`n
 
 		return theRounds
@@ -98,7 +98,7 @@ makeTitle(fight)
 	{
 		theLink := makeAnchor(fight)
 
-		theTitle = <h2>%fight%</h2>
+		theTitle = <h2 style="font-weight: bold; font-size: 28px; margin-top: 20px; margin-bottom: 12px; line-height:36px;">%fight%</h2>
 		theTitle = <a name="%theLink%"></a>%theTitle%`n
 
 		return theTitle
